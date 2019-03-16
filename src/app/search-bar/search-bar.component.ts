@@ -16,7 +16,7 @@ export class SearchBarComponent implements OnInit {
   users$: Observable<GitHubUser[]>;
   private search$ = new Subject<string>();
 
-  constructor(private service: UsersService) { }
+  constructor(private service: UsersService) {}
 
   ngOnInit() {
     this.users$ = this.search$.pipe(
