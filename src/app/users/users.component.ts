@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subject, ReplaySubject } from 'rxjs';
 import { GitHubSearchResponse, GitHubUser } from '../users.service';
-import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-users',
