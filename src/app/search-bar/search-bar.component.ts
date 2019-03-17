@@ -1,7 +1,8 @@
-import { Component, OnInit, Injector } from '@angular/core';
-import { UsersService, GitHubUser } from '../users.service';
+import { Component, OnInit } from '@angular/core';
+import { Input } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { GitHubUser } from '../users.service';
+import { debounceTime, distinctUntilChanged, switchMap, filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-bar',
@@ -11,20 +12,24 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 })
 export class SearchBarComponent implements OnInit {
 
-  value = 'Clear me';
+  @Input() search: Subject<string>;
 
-  users$: Observable<GitHubUser[]>;
   private search$ = new Subject<string>();
 
-  constructor(private service: UsersService) {}
+  private value: string;
+
+  onKey(event) {
+    this.search$.next(event.key);
+  }
 
   ngOnInit() {
-    this.users$ = this.search$.pipe(
-      debounceTime(500),
+    this.search$.pipe(
+      map((q: string) => q.trim()),
+      filter((q: string) => Boolean(q)),
+      debounceTime(1000),
       distinctUntilChanged(),
-      switchMap((q: string): Observable<GitHubUser[]> => {
-        return this.service.search(q);
-      })
-    );
+    ).subscribe(() => {
+      this.search.next(this.value);
+    });
   }
 }

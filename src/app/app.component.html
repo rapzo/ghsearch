@@ -1,9 +1,13 @@
 <section>
   <header>
-    <h1>github user search</h1>
+    <h1>{{ title }}</h1>
   </header>
   <div>
-    <app-search-bar></app-search-bar>
-    <app-users></app-users>
+    <app-search-bar [search]="search$"></app-search-bar>
+    <app-users
+      [response]="response$"
+      [page]="page$"
+      [perPage]="perPage$"
+    ></app-users>
   </div>
 </section>

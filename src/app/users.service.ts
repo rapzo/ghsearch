@@ -30,22 +30,17 @@ export interface GitHubSearchResponse {
   providedIn: 'root'
 })
 export class UsersService {
+  constructor(private http: HttpClient) {}
 
-  stream$: Observable<GitHubUser[]>;
+  search(q: string, page: number = 1, perPage: number = 10) {
+    const query = [
+      `q=${q.replace(/\s/, '+')}`,
+      `page=${page}`,
+      `perPage=${perPage}`
+    ].join('&');
 
-  constructor(private http: HttpClient) {
-
-  }
-
-  search(q: string) {
-    this.stream$ = this.http.get<GitHubSearchResponse>(
-      `http://localhost:3000/search?q=${q.replace(/\w/, '+')}`
-    ).pipe(
-      map((response: GitHubSearchResponse): GitHubUser[] => {
-        return response.items;
-      })
+    return this.http.get<GitHubSearchResponse>(
+      `http://localhost:3000/search?${query}`
     );
-
-    return this.stream$;
   }
 }

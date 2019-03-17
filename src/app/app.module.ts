@@ -5,6 +5,7 @@ import {
   MatIconModule,
   MatFormFieldModule,
   MatListModule,
+  MatPaginatorModule,
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -30,6 +31,7 @@ import { UserComponent } from './user/user.component';
     MatInputModule,
     MatIconModule,
     MatListModule,
+    MatPaginatorModule,
     FormsModule,
   ],
   providers: [],

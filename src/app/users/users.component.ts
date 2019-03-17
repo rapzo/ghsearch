@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../users.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { Subject, ReplaySubject } from 'rxjs';
+import { GitHubSearchResponse, GitHubUser } from '../users.service';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-users',
@@ -8,11 +10,29 @@ import { UsersService } from '../users.service';
 })
 export class UsersComponent implements OnInit {
 
-  users = null;
+  @Input() response: Subject<GitHubSearchResponse>;
 
-  constructor(private usersService: UsersService) {}
+  @Input() page: ReplaySubject<number>;
+
+  @Input() perPage: ReplaySubject<number>;
+
+  private users: GitHubUser[];
+
+  private userCount = 0;
+
+  private perPageOptions = [5, 10, 25, 100]
+
+  constructor() {}
 
   ngOnInit() {
+    this.response.subscribe((response: GitHubSearchResponse) => {
+      this.userCount = response.total_count;
+      this.users = response.items;
+    });
   }
 
+  handlePage(page: PageEvent) {
+    this.page.next(page.pageIndex);
+    this.perPage.next(page.pageSize);
+  }
 }
