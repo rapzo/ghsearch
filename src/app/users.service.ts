@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { API } from '../environments/environment';
 
 export interface GitHubUser {
   id: number;
@@ -40,7 +39,7 @@ export class UsersService {
     ].join('&');
 
     return this.http.get<GitHubSearchResponse>(
-      `http://localhost:3000/search?${query}`
+      `${API}/search?${query}`
     );
   }
 }

@@ -1,0 +1,66 @@
+.user-list{
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-wrap:wrap;
+  &__item{
+    display:flex;
+    flex-wrap: wrap;
+    text-align: center;
+    list-style-type:none;
+    text-transform: capitalize;
+    display:inline-block;
+    width:20%;
+    padding:20px 10px;
+    box-sizing: border-box;
+    
+  }
+  &__name{
+    font-family:roboto;
+    font-size:20px;
+    font-weight:bold;
+  }
+  &__address{
+    
+  }
+  &__avatar{
+    border-radius:64px;
+    width:128px;
+    height:128px;
+  }
+}
+
+@media(max-width:600px){
+  .user-list{
+    &__item{
+      width:50%;
+      padding:20px 10px;
+
+    }
+    &__name{
+    }
+    &__address{
+
+    }
+    &__avatar{
+    }
+  }
+}
+
+@media(min-width:601px) and (max-width:1024px){
+  .user-list{
+    &__item{
+      width:33%;
+      padding:20px 10px;
+
+    }
+    &__name{
+    }
+    &__address{
+
+    }
+    &__avatar{
+    }
+  }
+}
+

@@ -6,20 +6,11 @@
   [pageSizeOptions]="perPageOptions"
   (page)="handlePage($event)"
 ></mat-paginator>
-<mat-list>
-  <mat-list-item *ngFor="let user of users">
-    <img matListAvatar src="{{ user.avatar_url }}" alt="...">
-    <h2 matLine>{{ user.login }}</h2>
-    <p matLine>{{ user.url }}</p>
-    <p matLine>{{ user.html_url }}</p>
-    <mat-divider></mat-divider>
-  </mat-list-item>
-</mat-list>
-<mat-paginator
-  *ngIf="userCount > 0"
-  [length]="userCount"
-  [pageIndex]="1"
-  [pageSize]="perPage"
-  [pageSizeOptions]="perPageOptions"
-  (page)="handlePage($event)"
-></mat-paginator>
+<ul class="user-list">
+  <li *ngFor="let user of users">
+    <img src="{{ user.avatar_url }}" alt="{{ user.login }}">
+    <h2>{{ user.login }}</h2>
+    <p>{{ user.url }}</p>
+    <p>{{ user.html_url }}</p>
+  </li>
+</ul>

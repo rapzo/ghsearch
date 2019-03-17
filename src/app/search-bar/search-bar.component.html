@@ -1,9 +1,16 @@
-<mat-form-field class="example-form-field">
+<fieldset class="field-container">
   <input
-    matInput
     type="text"
-    placeholder="Clearable input"
+    placeholder="Search for GitHub users..."
+    class="field"
     [(ngModel)]="value"
     (keyup)="onKey($event)"
   />
-</mat-form-field>
+  <div class="icons-container">
+    <div class="icon-search"></div>
+    <div class="icon-close">
+      <div class="x-up"></div>
+      <div class="x-down"></div>
+    </div>
+  </div>
+</fieldset>
