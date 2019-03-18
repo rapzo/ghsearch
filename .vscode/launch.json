@@ -4,11 +4,19 @@
     {
       "type": "chrome",
       "request": "launch",
-      "name": "dev client",
+      "name": "chromium",
       "url": "http://localhost:4200",
       "webRoot": "${workspaceFolder}",
       "userDataDir": true,
       "runtimeExecutable": "/usr/bin/chromium"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "chrome",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}",
+      "userDataDir": true
     }
   ]
 }
