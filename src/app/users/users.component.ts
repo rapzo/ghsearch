@@ -15,9 +15,9 @@ export class UsersComponent implements OnInit {
 
   @Input() perPage: ReplaySubject<number>;
 
-  private users: GitHubUser[];
+  users: GitHubUser[];
 
-  private userCount = 0;
+  public userCount = 0;
 
   private perPageOptions = [5, 10, 25, 100]
 

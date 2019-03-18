@@ -16,7 +16,7 @@ export class SearchBarComponent implements OnInit {
 
   private search$ = new Subject<string>();
 
-  private value: string;
+  value: string;
 
   onKey(event) {
     this.search$.next(event.key);

@@ -38,8 +38,6 @@ export class UsersService {
       `perPage=${perPage}`
     ].join('&');
 
-    return this.http.get<GitHubSearchResponse>(
-      `${API}/search?${query}`
-    );
+    return this.http.get<GitHubSearchResponse>(`${API}/search?${query}`);
   }
 }

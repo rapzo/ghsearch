@@ -17,6 +17,23 @@
       "url": "http://localhost:4200",
       "webRoot": "${workspaceFolder}",
       "userDataDir": true
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "chromium prod",
+      "file": "${workspaceFolder}/dist/${workspaceFolderBasename}/index.html",
+      "webRoot": "${workspaceFolder}/dist/ghsearch",
+      "userDataDir": true,
+      "runtimeExecutable": "/usr/bin/chromium"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "chrome prod",
+      "file": "${workspaceFolder}/dist/${workspaceFolderBasename}/index.html",
+      "webRoot": "${workspaceFolder}/dist/ghsearch",
+      "userDataDir": true
     }
   ]
 }
