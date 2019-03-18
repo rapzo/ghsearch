@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { UsersService, GitHubSearchResponse } from './users.service';
 import { Subject, merge, ReplaySubject } from 'rxjs';
-import { switchMap, map, tap, distinctUntilChanged } from 'rxjs/operators';
+import { switchMap, tap, distinctUntilChanged } from 'rxjs/operators';
+
+export interface Pagination {
+  page: number;
+  perPage: number;
+}
 
 @Component({
   selector: 'app-root',
@@ -12,8 +17,14 @@ export class AppComponent {
   title = 'github user search';
 
   private search: string;
-  private page: number = 1;
-  private perPage: number = 10;
+
+  private pagination: Pagination = {
+    page: 1,
+    perPage: 5
+  };
+
+  private page = 1;
+  private perPage = 10;
 
   response$ = new Subject<GitHubSearchResponse>();
   search$ = new Subject<string>();

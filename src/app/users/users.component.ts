@@ -30,8 +30,8 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  handlePage(page: PageEvent) {
-    this.page.next(page.pageIndex);
-    this.perPage.next(page.pageSize);
+  handlePage(page: Event) {
+    // this.page.next(page.pageIndex);
+    // this.perPage.next(page.pageSize);
   }
 }

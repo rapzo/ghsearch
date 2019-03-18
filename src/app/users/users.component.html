@@ -1,11 +1,11 @@
-<mat-paginator
+<!-- <mat-paginator
   *ngIf="userCount > 0"
   [length]="userCount"
   [pageIndex]="1"
   [pageSize]="perPage"
   [pageSizeOptions]="perPageOptions"
   (page)="handlePage($event)"
-></mat-paginator>
+></mat-paginator> -->
 <ul class="user-list">
   <li *ngFor="let user of users">
     <img src="{{ user.avatar_url }}" alt="{{ user.login }}">
