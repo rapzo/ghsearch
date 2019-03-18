@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit {
 
   public userCount = 0;
 
-  private perPageOptions = [5, 10, 25, 100]
+  private perPageOptions = [5, 10, 25, 100];
 
   constructor() {}
 
