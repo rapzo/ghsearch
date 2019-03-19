@@ -1,19 +1,16 @@
-<!-- <mat-paginator
-  *ngIf="userCount > 0"
-  [length]="userCount"
-  [pageIndex]="1"
-  [pageSize]="perPage"
-  [pageSizeOptions]="perPageOptions"
-  (page)="handlePage($event)"
-></mat-paginator> -->
-<div *ngIf="userCount > 0" class="has-text-centered">
-  <pagination-controls (pageChange)="page = $event"></pagination-controls>
-</div>
 <ul class="user-list">
-  <li *ngFor="let user of users | paginate: { itemsPerPage: 10, currentPage: page }">
-    <img src="{{ user.avatar_url }}" alt="{{ user.login }}">
-    <h2>{{ user.login }}</h2>
-    <p>{{ user.url }}</p>
-    <p>{{ user.html_url }}</p>
+  <li class="user-list__item" *ngFor="let user of users | paginate: config">
+    <img src="{{ user.avatar_url }}" alt="{{ user.login }}" class="avatar">
+    <section class="user-info">
+      <h3>{{ user.login }}</h3>
+    </section>
   </li>
 </ul>
+<div class="pagination">
+  <pagination-controls
+    [autoHide]="true"
+    [responsive]="true"
+    [id]="config.id"
+    (pageChange)="handlePageChange($event)"
+  ></pagination-controls>
+</div>

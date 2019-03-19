@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-import { GitHubUser } from '../users.service';
+import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss'],
-
 })
 export class SearchBarComponent implements OnInit {
+
+  @Input() ngClass = 'container';
+
+  @Input() placeholder: string;
 
   @Input() search: Subject<string>;
 

@@ -1,12 +1,8 @@
-import { Component } from '@angular/core';
-import { UsersService, GitHubSearchResponse } from './users.service';
+import { Component, Input } from '@angular/core';
+import { UsersService, GitHubSearchResponse, Pagination } from './users.service';
 import { Subject, merge, ReplaySubject } from 'rxjs';
 import { switchMap, tap, distinctUntilChanged } from 'rxjs/operators';
-
-export interface Pagination {
-  page: number;
-  perPage: number;
-}
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -14,22 +10,18 @@ export interface Pagination {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'github user search';
+  title = 'write something...';
 
   private search: string;
 
   private pagination: Pagination = {
     page: 1,
-    perPage: 5
+    perPage: 10,
   };
-
-  private page = 1;
-  private perPage = 10;
 
   response$ = new Subject<GitHubSearchResponse>();
   search$ = new Subject<string>();
-  page$ = new ReplaySubject<number>(this.page);
-  perPage$ = new ReplaySubject<number>(this.perPage);
+  pagination$ = new ReplaySubject<Pagination>();
 
   constructor(private service: UsersService) {
     merge(
@@ -37,20 +29,18 @@ export class AppComponent {
         distinctUntilChanged(),
         tap((q: string) => this.search = q)
       ),
-      this.page$.pipe(
+      this.pagination$.pipe(
         distinctUntilChanged(),
-        tap((page: number) => this.page = page)
+        tap((pagination: Pagination) => this.pagination = pagination)
       ),
-      this.perPage$.pipe(
-        distinctUntilChanged(),
-        tap((perPage: number) => this.perPage = perPage)
-      )
     ).pipe(
-      switchMap(
-        () => this.service.search(this.search, this.page, this.perPage)
-      )
+      switchMap(() => this.service.search(this.search, this.pagination))
     ).subscribe((response: GitHubSearchResponse) => {
       this.response$.next(response);
     });
+
+    if (!environment.production) {
+      this.search$.next('xxx');
+    }
   }
 }

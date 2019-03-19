@@ -1,66 +1,77 @@
-.user-list{
-  padding:0;
-  margin:0;
-  display:flex;
-  flex-wrap:wrap;
-  &__item{
-    display:flex;
-    flex-wrap: wrap;
-    text-align: center;
-    list-style-type:none;
-    text-transform: capitalize;
-    display:inline-block;
-    width:20%;
-    padding:20px 10px;
-    box-sizing: border-box;
-    
-  }
-  &__name{
-    font-family:roboto;
-    font-size:20px;
-    font-weight:bold;
-  }
-  &__address{
-    
-  }
-  &__avatar{
-    border-radius:64px;
-    width:128px;
-    height:128px;
-  }
+$tundora: #4B4848;
+
+.pagination {
+  margin-top: 50px;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@media(max-width:600px){
-  .user-list{
-    &__item{
-      width:50%;
-      padding:20px 10px;
+.user-list {
+  width: 100%;
+  margin: 100px 0 0 0;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
 
-    }
-    &__name{
-    }
-    &__address{
+  .user-list__item {
+    position: relative;
+    min-height: 250px;
+    margin: 15px 20px;
+    // padding: 15px 20px;
+    background: white;
+    border-radius: 3px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    box-shadow: 0px 8px 15px rgba($tundora, 0.1);
+    transition: all 0.4s ease;
 
+    &:hover {
+      cursor: pointer;
+      outline: none;
+      box-shadow: 0px 8px 20px rgba($tundora, 0.5);
     }
-    &__avatar{
+
+    .avatar {
+      width: 200px;
+      height: 200px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      border-top-left-radius: 25px;
+      border-top-right-radius: 25px;
+    }
+
+    .user-info {
+      position: absolute;
+      padding: 0 15px;
+      bottom: 0;
+      top: 200px;
+      width: 170px;
+      background: white;
+      transition: top 0.2s ease-in;
+    }
+
+    &:hover {
+      .user-info {
+        transition: top 0.4s ease-out;
+        position: absolute;
+        top: 100px;
+
+        .h3 {
+          margin: 0;
+        }
+      }
+
+      .avatar {
+        transition: opacity 0.4s ease-out;
+        opacity: .7;
+      }
     }
   }
 }
-
-@media(min-width:601px) and (max-width:1024px){
-  .user-list{
-    &__item{
-      width:33%;
-      padding:20px 10px;
-
-    }
-    &__name{
-    }
-    &__address{
-
-    }
-    &__avatar{
-    }
-  }
-}
-

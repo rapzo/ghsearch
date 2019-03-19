@@ -2,4 +2,4 @@ export const environment = {
   production: true
 };
 
-export const API = '';
+export const API = '/search`';

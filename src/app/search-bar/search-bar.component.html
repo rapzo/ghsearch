@@ -1,7 +1,7 @@
-<fieldset class="field-container">
+<div class="field-container">
   <input
     type="text"
-    placeholder="Search for GitHub users..."
+    [placeholder]="placeholder"
     class="field"
     [(ngModel)]="value"
     (keyup)="onKey($event)"
@@ -13,4 +13,4 @@
       <div class="x-down"></div>
     </div>
   </div>
-</fieldset>
+</div>

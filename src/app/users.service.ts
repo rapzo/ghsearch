@@ -25,19 +25,25 @@ export interface GitHubSearchResponse {
   items: GitHubUser[];
 }
 
+export interface Pagination {
+  page: number;
+  perPage: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
   constructor(private http: HttpClient) {}
 
-  search(q: string, page: number = 1, perPage: number = 10) {
+  search(q: string, pagination: Pagination) {
+    const {page, perPage} = pagination;
     const query = [
       `q=${q.replace(/\s/, '+')}`,
       `page=${page}`,
       `perPage=${perPage}`
     ].join('&');
 
-    return this.http.get<GitHubSearchResponse>(`${API}/search?${query}`);
+    return this.http.get<GitHubSearchResponse>(`${API}?${query}`);
   }
 }
