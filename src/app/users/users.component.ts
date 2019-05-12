@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subject, ReplaySubject } from 'rxjs';
 import { GitHubSearchResponse, User, Pagination, PageInfo } from '../users.service';
+import { PageDirection, Page } from '../app.component';
 
 @Component({
   selector: 'app-users',
@@ -11,30 +12,39 @@ export class UsersComponent implements OnInit {
 
   @Input() response: Subject<GitHubSearchResponse>;
 
-  @Input() pagination: ReplaySubject<Pagination>;
+  @Input() pagination: ReplaySubject<Page>;
 
   users: User[];
 
-  config: PageInfo;
+  pageInfo: PageInfo;
 
   totalItems: number;
 
-  perPage: 10;
+  perPage = 10;
 
   ngOnInit() {
     this.response.subscribe((response: GitHubSearchResponse) => {
       this.totalItems = response.userCount;
       this.users = response.items;
+      this.pageInfo = response.pageInfo;
     });
 
-    this.pagination.subscribe((pagination: Pagination) => {
+    // this.pagination.subscribe((page: Page) => {
       
+    // });
+  }
+
+  handleNextPage() {
+    this.pagination.next({
+      cursor: this.pageInfo.endCursor,
+      direction: PageDirection.next,
     });
   }
 
-  handlePageChange(page: number) {
+  handlePreviousPage() {
     this.pagination.next({
-      page,
+      cursor: this.pageInfo.endCursor,
+      direction: PageDirection.previous,
     });
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API } from '../environments/environment';
+import { Page } from './app.component';
 
 export interface User {
   name: string;
@@ -41,15 +42,14 @@ export interface Pagination {
 export class UsersService {
   constructor(private http: HttpClient) {}
 
-  search(q: string, pagination: Pagination) {
-    const {page, perPage} = pagination;
-    const query = [`q=${q.replace(/\s/, '+')}`]
+  search(q: string, page?: Page) {
+    const query = [
+      `q=${q.replace(/\s/, '+')}`,
+      `perPage=${10}`,
+    ]
     
-    if (typeof page === 'string') {
-      query.push(`page=${page}`);
-    }
-    if (typeof perPage === 'number') {
-      query.push(`perPage=${perPage}`);
+    if (page) {
+      query.push(`page=${page.cursor}`);
     }
 
     return this.http.get<GitHubSearchResponse>(`${API}?${query.join('&')}`);

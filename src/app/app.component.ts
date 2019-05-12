@@ -1,9 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { UsersService, GitHubSearchResponse, Pagination } from './users.service';
-import { Subject, merge, ReplaySubject } from 'rxjs';
+import { Component } from '@angular/core';
+import { UsersService, GitHubSearchResponse } from './users.service';
+import { Subject, merge, ReplaySubject, BehaviorSubject } from 'rxjs';
 import { switchMap, tap, distinctUntilChanged } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
+export enum PageDirection {
+  next,
+  previous,
+}
+export interface Page {
+  cursor?: string;
+  direction?: PageDirection;
+}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,26 +22,22 @@ export class AppComponent {
 
   private search: string;
 
-  private pagination: Pagination = {
-    page: 1,
-    perPage: 10,
-  };
+  private pagination: Page;
 
   response$ = new Subject<GitHubSearchResponse>();
   search$ = new Subject<string>();
-  pagination$ = new ReplaySubject<Pagination>();
+  pagination$ = new Subject<Page>();
 
   constructor(private service: UsersService) {
     merge(
       this.search$.pipe(
-        distinctUntilChanged(),
         tap((q: string) => this.search = q)
       ),
       this.pagination$.pipe(
-        distinctUntilChanged(),
-        tap((pagination: Pagination) => this.pagination = pagination)
+        tap((page: Page) => this.pagination = page)
       ),
     ).pipe(
+      distinctUntilChanged(),
       switchMap(() => this.service.search(this.search, this.pagination))
     ).subscribe((response: GitHubSearchResponse) => {
       this.response$.next(response);

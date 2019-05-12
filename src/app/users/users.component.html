@@ -13,5 +13,7 @@
   </li>
 </ul>
 <div class="pagination">
-  
+  <button class="prev" (click)="handlePreviousPage($event)">previous {{ perPage }}</button>
+  <div class="">of {{ totalItems }}</div>
+  <button class="next" (click)="handleNextPage($event)">next {{ perPage }}</button>
 </div>
