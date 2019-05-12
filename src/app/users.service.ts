@@ -2,32 +2,37 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API } from '../environments/environment';
 
-export interface GitHubUser {
-  id: number;
+export interface User {
+  name: string;
   login: string;
-  node_id: string;
-  avatar_url: string;
-  gravatar_id: string;
+  email: string;
+  company: string;
   url: string;
-  html_url: string;
-  followers_url: string;
-  subscriptions_url: string;
-  organizations_url: string;
-  repos_url: string;
-  received_events_url: string;
-  type: string;
-  score: number;
+  avatarUrl: string;
+  websiteUrl: string;
+  followers: number;
+  following: number;
+  repositories: number;
+  starredRepositories: number;
+  repositoriesContributedTo: number;
 }
 
 export interface GitHubSearchResponse {
-  total_count: number;
-  incomplete_results: boolean;
-  items: GitHubUser[];
+  pageInfo: PageInfo;
+  userCount: number;
+  items: User[];
+}
+
+export interface PageInfo {
+  endCursor: string;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  startCursor: string;
 }
 
 export interface Pagination {
   page: number;
-  perPage: number;
+  perPage?: number;
 }
 
 @Injectable({
@@ -38,12 +43,15 @@ export class UsersService {
 
   search(q: string, pagination: Pagination) {
     const {page, perPage} = pagination;
-    const query = [
-      `q=${q.replace(/\s/, '+')}`,
-      `page=${page}`,
-      `perPage=${perPage}`
-    ].join('&');
+    const query = [`q=${q.replace(/\s/, '+')}`]
+    
+    if (typeof page === 'string') {
+      query.push(`page=${page}`);
+    }
+    if (typeof perPage === 'number') {
+      query.push(`perPage=${perPage}`);
+    }
 
-    return this.http.get<GitHubSearchResponse>(`${API}?${query}`);
+    return this.http.get<GitHubSearchResponse>(`${API}?${query.join('&')}`);
   }
 }

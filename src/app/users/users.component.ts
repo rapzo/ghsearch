@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subject, ReplaySubject } from 'rxjs';
-import { GitHubSearchResponse, GitHubUser, Pagination } from '../users.service';
-import { PaginationInstance } from 'ngx-pagination';
+import { GitHubSearchResponse, User, Pagination, PageInfo } from '../users.service';
 
 @Component({
   selector: 'app-users',
@@ -14,30 +13,28 @@ export class UsersComponent implements OnInit {
 
   @Input() pagination: ReplaySubject<Pagination>;
 
-  users: GitHubUser[];
+  users: User[];
 
-  public config: PaginationInstance = {
-    id: 'search-results',
-    itemsPerPage: 10,
-    currentPage: 1,
-  };
+  config: PageInfo;
+
+  totalItems: number;
+
+  perPage: 10;
 
   ngOnInit() {
     this.response.subscribe((response: GitHubSearchResponse) => {
-      this.config.totalItems = response.total_count;
+      this.totalItems = response.userCount;
       this.users = response.items;
     });
 
     this.pagination.subscribe((pagination: Pagination) => {
-      this.config.currentPage = pagination.page;
-      this.config.itemsPerPage = pagination.perPage;
+      
     });
   }
 
   handlePageChange(page: number) {
     this.pagination.next({
       page,
-      perPage: this.config.itemsPerPage,
     });
   }
 }

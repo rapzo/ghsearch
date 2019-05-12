@@ -6,7 +6,8 @@ export const environment = {
   production: false
 };
 
-export const API = 'http://localhost:3000/search';
+// export const API = 'https://ghsearch-api.rapzo.now.sh/search';
+export const API = '/assets/10.json';
 
 /*
  * For easier debugging in development mode, you can import the following file

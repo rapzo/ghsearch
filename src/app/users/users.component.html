@@ -1,16 +1,17 @@
 <ul class="user-list">
-  <li class="user-list__item" *ngFor="let user of users | paginate: config">
-    <img src="{{ user.avatar_url }}" alt="{{ user.login }}" class="avatar">
+  <li class="user-list__item" *ngFor="let user of users">
+    <img src="{{ user.avatarUrl }}" alt="{{ user.login }}" class="avatar">
     <section class="user-info">
       <h3>{{ user.login }}</h3>
+      <div class="user-details">
+        <p>has {{ user.repositories }} repositories</p>
+        <p>and {{ user.followers }} followers</p>
+        <p>is following {{ user.following }} users</p>
+        <p>has starred {{ user.starredRepositories }} repositories</p>
+      </div>
     </section>
   </li>
 </ul>
 <div class="pagination">
-  <pagination-controls
-    [autoHide]="true"
-    [responsive]="true"
-    [id]="config.id"
-    (pageChange)="handlePageChange($event)"
-  ></pagination-controls>
+  
 </div>
