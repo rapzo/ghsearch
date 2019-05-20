@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  flex-direction: row;
+}
+
+.stash {
+  display: flex;
+  width: 300px;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}

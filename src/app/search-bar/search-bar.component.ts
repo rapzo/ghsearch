@@ -12,9 +12,15 @@ export class SearchBarComponent implements OnInit {
 
   @Input() ngClass = 'container';
 
-  @Input() placeholder: string;
-
   @Input() search: Subject<string>;
+
+  @Input() placeholder = "search...";
+  
+  theme = "light";
+
+  size = "xl";
+
+  disabled = false;
 
   private search$ = new Subject<string>();
 

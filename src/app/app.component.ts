@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UsersService, GitHubSearchResponse } from './users.service';
-import { Subject, merge, ReplaySubject, BehaviorSubject } from 'rxjs';
+import { Subject, merge } from 'rxjs';
 import { switchMap, tap, distinctUntilChanged } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -24,6 +24,8 @@ export class AppComponent {
 
   private pagination: Page;
 
+  items = [];
+
   response$ = new Subject<GitHubSearchResponse>();
   search$ = new Subject<string>();
   pagination$ = new Subject<Page>();
@@ -46,5 +48,17 @@ export class AppComponent {
     if (!environment.production) {
       this.search$.next('xxx');
     }
+  }
+
+  handleSearchInput(input: string) {
+    this.search$.next(input);
+  }
+
+  handleClickPrev() {
+    this.pagination$.next();
+  }
+
+  handleClickNext() {
+    this.pagination$.next();
   }
 }

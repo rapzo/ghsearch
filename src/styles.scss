@@ -1,12 +1,13 @@
-@import '~normalize.css/normalize.css';
-@import "~carbon-components/scss/globals/scss/styles.scss";
-
-$hint: #FAF8F8;
-$turqoise: #17EAD9;
+@import "~carbon-components/scss/globals/scss/css--reset";
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~carbon-components/scss/globals/scss/styles";
 
 body {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: $hint;
+  @include reset;
+  @include type-style('body-short-01');
+  color: $text-01;
+  background-color: $ui-background;
+  line-height: 1;
+  width: 100vw;
+  height: 100vh;
 }

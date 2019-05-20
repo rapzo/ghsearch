@@ -1,8 +1,17 @@
-<app-search-bar
-  [search]="search$"
-  [placeholder]="title"
-></app-search-bar>
-<app-users
-  [response]="response$"
-  [pagination]="pagination$"
-></app-users>
+
+<app-stash-bar class="stash"></app-stash-bar>
+
+<div class="gallery">
+
+  <app-search-bar
+    [search]="search$"
+    [placeholder]="title"
+  ></app-search-bar>
+
+  <app-gallery
+    [items]="items"
+    (handleClickPrev)="handleClickPrev()"
+    (handleClickNext)="handleClickNext()"
+  ></app-gallery>
+
+</div>
